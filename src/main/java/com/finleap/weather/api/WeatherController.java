@@ -39,16 +39,16 @@ public class WeatherController {
         log.info("Get average temperature and pressure api called with uri: {} and for city: {}", "v1//data", city);
         try {
             //validating if the city name was not passed empty
-            if (StringUtils.isEmpty(city)) {
+            if (StringUtils.isEmpty(city.toLowerCase())) {
                 return new ResponseEntity(HttpStatus.BAD_REQUEST);
             }
 
             //validating if the city name passed is valid or not
-            if (!validator.validateCityName(city)) {
+            if (!validator.validateCityName(city.toLowerCase())) {
                 return new ResponseEntity(HttpStatus.NOT_FOUND);
             }
 
-            WeatherResponse response = wService.getAverageTemperatureAndPressure(city);
+            WeatherResponse response = wService.getAverageTemperatureAndPressure(city.toLowerCase());
             log.info("Responded to the call with the data");
             return new ResponseEntity(response, HttpStatus.OK);
 
